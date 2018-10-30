@@ -1,13 +1,15 @@
 from flask import Flask
 app = Flask(__name__)
 
-# TODO: Read from version file
-VERSION = '1.0.0'
+
+def get_app_version():
+    with open('VERSION.txt') as f:
+        return f.read()
 
 
 @app.route('/version')
 def version():
-    return VERSION
+    return get_app_version()
 
 
 if __name__ == '__main__':
