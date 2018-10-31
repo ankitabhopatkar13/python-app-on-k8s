@@ -1,11 +1,17 @@
 # python-app-on-k8s
-## kubernetes cluster setup on AWS EKS -
+## kubernetes cluster setup on Minikube -
 
-1. Manually created a cluster by specifying 3 subnets in different availability zones to make sure of high availability
-2. Once the cluster was created, set kubectl context to EKS Cluster following https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html
-   
-   **Note** : To set the config and use EKS, use the cli credentials of the only user that you used when clicking on create cluster from console.
-3. Create nodes and configure to the cluster by following the document - https://docs.aws.amazon.com/eks/latest/userguide/launch-workers.html
+Install Minikube using brew (you need VirtualBox installed)
+
+`brew cask install minikube`
+
+`minikube start --memory 6000 --cpus=4 (open VirtualBox and see minikube  instance running, first time it can take upto 10-15 min)`
+
+## Install Kubernetes command line -
+`brew install kubectl`
+
+## For using docker daemon running on minikube run the following -
+`eval $(minikube docker-env)`
 
 ## Python App Docker Build - 
 
