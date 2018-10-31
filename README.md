@@ -84,3 +84,28 @@ It should be successful.
 
 `kubectl rollout undo deployments/python-app -n application`
 
+### Blue/Green Deployment -
+
+1. Create one more file in parallel to *app-deployment/simple-python-deployment.yml* named as *app-deployment/simple-python-deployment-green.yml* . Remove the service resource from this yaml.
+
+Change the deployment name to *python-app-green*
+Change template metadata label's version property to 1.0.2
+Change image to python-app:1.0.2
+
+Apply the green deployment by -
+
+`kubectl apply -f app-deployment/simple-python-deployment-green.yml`
+
+This will create 3 more pods using the new image.
+
+Note: The service is still pointing to the old containers.
+
+2. Point the service to the new containers -
+
+Change the selector version in service resource to 1.0.2 in *app-deployment/simple-python-deployment.yml*
+
+3. Apply the service by running -
+
+`kubectl apply -f app-deployment/simple-python-deployment.yml`
+
+
