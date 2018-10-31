@@ -1,12 +1,5 @@
 FROM python:3.6
 
-# Copying src code to Container
-COPY ./python-app /python-app
-
-WORKDIR /python-app/src
-
-RUN pip install -r requirements.txt
-
 # Application Environment variables
 ENV APP_ENV development
 
@@ -15,6 +8,13 @@ EXPOSE 5000
 
 # Setting Persistent data
 VOLUME ["/app-data"]
+
+# Copying src code to Container
+COPY ./python-app /python-app
+
+WORKDIR /python-app/src
+
+RUN pip install -r requirements.txt
 
 # Running Python Application
 CMD ["python", "app.py"]
