@@ -15,6 +15,8 @@ Install Minikube using brew (you need VirtualBox installed)
 
 ## Python App Docker Build - 
 
+### Docker image having version 1.0.1
+
 1. After cloning the repo build docker image by -
 
 `docker build . -t python-app:1.0.1`
@@ -26,4 +28,20 @@ Install Minikube using brew (you need VirtualBox installed)
 Access the application at -
 
 `http://localhost:5000/version`
+
+### Docker image having version 1.0.2
+
+1. Change the version in python-app-on-k8s/python-app/src/VERSION.txt to 1.0.2 and run -
+
+`docker build . -t python-app:1.0.2`
+
+2. Run the application by running -
+
+`docker run -it -p 5000:5000 python-app:1.0.2`
+
+Access the application at -
+
+`http://localhost:5000/version`
+
+You can see the version changed in this image.
 
