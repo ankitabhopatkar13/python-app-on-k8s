@@ -89,7 +89,9 @@ It should be successful.
 1. Create one more file in parallel to *app-deployment/simple-python-deployment.yml* named as *app-deployment/simple-python-deployment-green.yml* . Remove the service resource from this yaml.
 
 Change the deployment name to *python-app-green*
+
 Change template metadata label's version property to 1.0.2
+
 Change image to python-app:1.0.2
 
 Apply the green deployment by -
@@ -108,4 +110,16 @@ Change the selector version in service resource to 1.0.2 in *app-deployment/simp
 
 `kubectl apply -f app-deployment/simple-python-deployment.yml`
 
+Note: We can write a script to automate these steps for blue/green deployment.
 
+## Autoscaling
+
+Kubernetes can scale the application by the metrics we want to give. For ex -
+
+To auto-scale the application when the cpu percent goes above 75 percent configure *horizontal pod autoscaler* by running -
+
+`kubectl autoscale deployments/python-app --min=3 --max=10 --cpu-percent=80 -n application`
+
+To delete this - 
+
+`kubectl delete hpa python-app -n application`
