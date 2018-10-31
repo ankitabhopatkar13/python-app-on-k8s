@@ -63,6 +63,16 @@ You can see the version changed in this image.
 
 `kubectl get pods -n application`
 
+4. Access the application from your local by hitting the following url -
+
+`http://<minikube-public-ip>:<Port-Exposed-By-Node-Port>/version`
+
+To find out the Port exposed by minikube, run the following command -
+
+`kubectl get svc -n application`
+
+In the Ports column the 5000 port will be mapped to an ephemeral port. Use that port to access the application.
+
 ## Upgrading the application with zero downtime -
 
 ### Rolling Deployment -
