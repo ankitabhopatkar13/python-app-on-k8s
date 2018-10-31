@@ -62,9 +62,9 @@ You can see the version changed in this image.
 
 ## Upgrading the application with zero downtime -
 
-### Blue/Green Deployment -
+### Rolling Deployment -
 
-1. Change the image of the deployment to point to second image.
+1. Change the image of the deployment to point to second/new image.
 
 `kubectl set image deployments/python-app python-app=python-app:1.0.2 -n application`
 
@@ -73,4 +73,14 @@ In a parallel window do a watch on the pods to see it creating three new pods fo
 `watch kubectl get pods -n application`
 
 By just changing the image, we didn't have to change anything in the service like the selectors or update any selectors in the deployment.
+
+2. Check the status of the rollout by running -
+
+`kubectl rollout status deployments/python-app -n application`
+
+It should be successful.
+
+3. In case if anything goes wrong, we can *rollback* by running -
+
+`kubectl rollout undo deployments/python-app -n application`
 
