@@ -1,10 +1,10 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: python-app
   namespace: application
 spec:
-  serviceName: healthcheck
+  replicas: 3
   selector:
     matchLabels:
       app: python-app
@@ -12,7 +12,7 @@ spec:
     metadata:
       labels:
         app: python-app
-        version: 1.0
+        version: 1.0.1
     spec:
       containers:
         - image: python-app:1.0.1 
@@ -34,5 +34,6 @@ spec:
     targetPort: 5000
   selector:
     app: python-app
-  type: LoadBalancer
+    version: 1.0.1
+  type: NodePort
 
