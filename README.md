@@ -49,6 +49,8 @@ You can see the version changed in this image.
 
 ## Deploying application on Kubernetes cluster
 
+*Note: kubectl client is running in context of minikube*
+
 1. Create the namespace for the application -
 
 `kubectl create namespace application`
@@ -58,13 +60,16 @@ You can see the version changed in this image.
 `kubectl apply -f app-deployment/simple-python-deployment.yml`
 
 3. Verify that there are 3 pods running as we have given the count for replica as 3 -
+
 `kubectl get pods -n application`
 
 ## Upgrading the application with zero downtime -
 
 ### Rolling Deployment -
 
-1. Change the image of the deployment to point to second/new image.
+In rolling deployments we will roll out the new version of application and incremently the new pods will be replacing the old pods.
+
+1. Change the image of the deployment to point to second/new image which has new version of application.
 
 `kubectl set image deployments/python-app python-app=python-app:1.0.2 -n application`
 
@@ -86,13 +91,17 @@ It should be successful.
 
 ### Blue/Green Deployment -
 
-1. Create one more file in parallel to *app-deployment/simple-python-deployment.yml* named as *app-deployment/simple-python-deployment-green.yml* . Remove the service resource from this yaml.
+In blue/green deployment we first create the green environment to be available and once it's up and running we just switch the service resource to point to the application in green environment and this cycle goes on for each release.
 
-Change the deployment name to *python-app-green*
+1. Create one more file in parallel to *app-deployment/simple-python-deployment.yml* named as *app-deployment/simple-python-deployment-green.yml* . Make the following changes to it -
 
-Change template metadata label's version property to 1.0.2
+    a. Remove the service resource from this yaml.
 
-Change image to python-app:1.0.2
+    b. Change the deployment name to *python-app-green*
+
+    c. Change template metadata label's version property to 1.0.2
+
+    d. Change image to python-app:1.0.2
 
 Apply the green deployment by -
 
