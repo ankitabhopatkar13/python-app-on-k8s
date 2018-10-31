@@ -114,12 +114,24 @@ Note: We can write a script to automate these steps for blue/green deployment.
 
 ## Autoscaling
 
-Kubernetes can scale the application by the metrics we want to give. For ex -
+Kubernetes can scale the application by the metrics we would want to give. For ex -
 
 To auto-scale the application when the cpu percent goes above 75 percent configure *horizontal pod autoscaler* by running -
 
-`kubectl autoscale deployments/python-app --min=3 --max=10 --cpu-percent=80 -n application`
+`kubectl autoscale deployments/python-app --min=3 --max=10 --cpu-percent=75 -n application`
 
-To delete this - 
+To delete this hpa - 
 
 `kubectl delete hpa python-app -n application`
+
+## Kubernetes cluster's high availabilty
+
+Make sure to spin up a cluster which is highly available meaning -
+
+* It's masters are spread accross atleast three different availability zones.
+* The master is a cluster of three and not just a single master node.
+* It's nodes are also spread accros multiple availability zones.
+
+By ensuring above we can make sure that if any of the AZ's go down, others are available to serve the request.
+
+Also make sure that you backup the storage volumes that have etcd hosted so that in case of cluster destruction, you can attach the volume and the data is available back.
